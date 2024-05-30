@@ -1,6 +1,7 @@
 package com.example.java_pos.Repo.Adapter;
 
 import android.content.Context;
+import android.content.Intent;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -14,6 +15,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.java_pos.Models.Category;
 import com.example.java_pos.R;
+import com.example.java_pos.Views.ProductActivity;
 
 import java.util.List;
 
@@ -46,6 +48,10 @@ public class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.ViewHo
         holder.cardView.setOnClickListener(v -> {
 
             Log.d("", "categoryId: "+categoryId);
+
+            Intent intent = new Intent(context, ProductActivity.class);
+            intent.putExtra("categoryId", categoryId);
+            context.startActivity(intent);
 
         });
 
