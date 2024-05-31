@@ -66,25 +66,25 @@ public class MainActivity extends AppCompatActivity {
 
     private List<Product> generateElectronicsProductList() {
         List<Product> productList = new ArrayList<>();
-        productList.add(new Product(R.drawable.baseline_account_circle_24, "Apple Watch", 399.99, 10, 1));
-        productList.add(new Product(R.drawable.baseline_account_circle_24, "Laptop", 999.99, 5, 2));
-        productList.add(new Product(R.drawable.baseline_account_circle_24, "Smartphone", 699.99, 8, 3));
+        productList.add(new Product(R.drawable.baseline_account_circle_24, "Apple Watch", "description 1", 399.99, 10, 1));
+        productList.add(new Product(R.drawable.baseline_account_circle_24, "Laptop", "description 2",999.99, 5, 2));
+        productList.add(new Product(R.drawable.baseline_account_circle_24, "Smartphone", "description 3",699.99, 8, 3));
         return productList;
     }
 
     private List<Product> generateGroceriesProductList() {
         List<Product> productList = new ArrayList<>();
-        productList.add(new Product(R.drawable.baseline_account_circle_24, "Apple", 0.99, 50, 4));
-        productList.add(new Product(R.drawable.baseline_account_circle_24, "Banana", 0.49, 100, 5));
-        productList.add(new Product(R.drawable.baseline_account_circle_24, "Bread", 1.99, 20, 6));
+        productList.add(new Product(R.drawable.baseline_account_circle_24, "Apple", "description 4",0.99, 50, 4));
+        productList.add(new Product(R.drawable.baseline_account_circle_24, "Banana", "description 5",0.49, 100, 5));
+        productList.add(new Product(R.drawable.baseline_account_circle_24, "Bread", "description 6",1.99, 20, 6));
         return productList;
     }
 
     private List<Product> generateClothingProductList() {
         List<Product> productList = new ArrayList<>();
-        productList.add(new Product(R.drawable.baseline_account_circle_24, "Shirt", 29.99, 15, 7));
-        productList.add(new Product(R.drawable.baseline_account_circle_24, "Jeans", 49.99, 10, 8));
-        productList.add(new Product(R.drawable.baseline_account_circle_24, "Jacket", 99.99, 5, 9));
+        productList.add(new Product(R.drawable.baseline_account_circle_24, "Shirt", "description 7",29.99, 15, 7));
+        productList.add(new Product(R.drawable.baseline_account_circle_24, "Jeans", "description 8",49.99, 10, 8));
+        productList.add(new Product(R.drawable.baseline_account_circle_24, "Jacket", "description 9",99.99, 5, 9));
         return productList;
     }
 }
