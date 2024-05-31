@@ -7,6 +7,7 @@ import android.widget.ArrayAdapter;
 import android.widget.Spinner;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -45,7 +46,7 @@ public class MainActivity extends AppCompatActivity {
         spinnerCategories.setAdapter(spinnerAdapter);
 
         productAdapter = new ProductAdapter(new ArrayList<>());
-        recyclerViewProducts.setLayoutManager(new LinearLayoutManager(this));
+        recyclerViewProducts.setLayoutManager(new GridLayoutManager(this, 2, GridLayoutManager.HORIZONTAL, false));
         recyclerViewProducts.setAdapter(productAdapter);
 
         spinnerCategories.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
@@ -65,25 +66,25 @@ public class MainActivity extends AppCompatActivity {
 
     private List<Product> generateElectronicsProductList() {
         List<Product> productList = new ArrayList<>();
-        productList.add(new Product(R.drawable.baseline_account_circle_24, "Apple Watch", 399.99, 10));
-        productList.add(new Product(R.drawable.baseline_account_circle_24, "Laptop", 999.99, 5));
-        productList.add(new Product(R.drawable.baseline_account_circle_24, "Smartphone", 699.99, 8));
+        productList.add(new Product(R.drawable.baseline_account_circle_24, "Apple Watch", 399.99, 10, 1));
+        productList.add(new Product(R.drawable.baseline_account_circle_24, "Laptop", 999.99, 5, 2));
+        productList.add(new Product(R.drawable.baseline_account_circle_24, "Smartphone", 699.99, 8, 3));
         return productList;
     }
 
     private List<Product> generateGroceriesProductList() {
         List<Product> productList = new ArrayList<>();
-        productList.add(new Product(R.drawable.baseline_account_circle_24, "Apple", 0.99, 50));
-        productList.add(new Product(R.drawable.baseline_account_circle_24, "Banana", 0.49, 100));
-        productList.add(new Product(R.drawable.baseline_account_circle_24, "Bread", 1.99, 20));
+        productList.add(new Product(R.drawable.baseline_account_circle_24, "Apple", 0.99, 50, 4));
+        productList.add(new Product(R.drawable.baseline_account_circle_24, "Banana", 0.49, 100, 5));
+        productList.add(new Product(R.drawable.baseline_account_circle_24, "Bread", 1.99, 20, 6));
         return productList;
     }
 
     private List<Product> generateClothingProductList() {
         List<Product> productList = new ArrayList<>();
-        productList.add(new Product(R.drawable.baseline_account_circle_24, "Shirt", 29.99, 15));
-        productList.add(new Product(R.drawable.baseline_account_circle_24, "Jeans", 49.99, 10));
-        productList.add(new Product(R.drawable.baseline_account_circle_24, "Jacket", 99.99, 5));
+        productList.add(new Product(R.drawable.baseline_account_circle_24, "Shirt", 29.99, 15, 7));
+        productList.add(new Product(R.drawable.baseline_account_circle_24, "Jeans", 49.99, 10, 8));
+        productList.add(new Product(R.drawable.baseline_account_circle_24, "Jacket", 99.99, 5, 9));
         return productList;
     }
 }

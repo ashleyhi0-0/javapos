@@ -6,11 +6,14 @@ public class Product {
     private double price;
     private int quantity;
 
-    public Product(int imageId, String name, double price, int quantity) {
+    private int productId;
+
+    public Product(int imageId, String name, double price, int quantity, int productId) {
         this.imageId = imageId;
         this.name = name;
         this.price = price;
         this.quantity = quantity;
+        this.productId = productId;
     }
 
     public int getImageId() {
@@ -28,4 +31,6 @@ public class Product {
     public int getQuantity() {
         return quantity;
     }
+
+    public int getProductId() { return productId; }
 }

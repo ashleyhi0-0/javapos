@@ -1,6 +1,7 @@
 package com.example.java_pos.Repo.Adapter;
 
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import com.example.java_pos.Models.Product;
 import com.example.java_pos.R;
@@ -37,6 +38,15 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ProductV
         holder.productName.setText(product.getName());
         holder.productPrice.setText("Price: $" + product.getPrice());
         holder.productQuantity.setText("Quantity: " + product.getQuantity());
+
+        int productId = product.getProductId();
+
+        holder.productImage.setOnClickListener(v -> {
+
+            Log.d("", "productId: "+productId);
+
+        });
+
     }
 
     @Override
