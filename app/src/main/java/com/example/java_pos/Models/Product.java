@@ -1,47 +1,31 @@
 package com.example.java_pos.Models;
 
 public class Product {
+    private int imageId;
+    private String name;
+    private double price;
+    private int quantity;
 
-    int categoryId, productId, quantity, productImg;
-    double price;
-
-    String productName, productDesc;
-
-    public Product(int categoryId, int productId, int quantity, int productImg, double price, String productName, String productDesc) {
-        this.categoryId = categoryId;
-        this.productId = productId;
-        this.quantity = quantity;
-        this.productImg = productImg;
+    public Product(int imageId, String name, double price, int quantity) {
+        this.imageId = imageId;
+        this.name = name;
         this.price = price;
-        this.productName = productName;
-        this.productDesc = productDesc;
+        this.quantity = quantity;
     }
 
-    public int getCategoryId() {
-        return categoryId;
+    public int getImageId() {
+        return imageId;
     }
 
-    public int getProductId() {
-        return productId;
-    }
-
-    public int getQuantity() {
-        return quantity;
-    }
-
-    public int getProductImg() {
-        return productImg;
+    public String getName() {
+        return name;
     }
 
     public double getPrice() {
         return price;
     }
 
-    public String getProductName() {
-        return productName;
-    }
-
-    public String getProductDesc() {
-        return productDesc;
+    public int getQuantity() {
+        return quantity;
     }
 }

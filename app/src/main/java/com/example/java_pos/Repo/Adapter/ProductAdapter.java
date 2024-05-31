@@ -1,76 +1,66 @@
 package com.example.java_pos.Repo.Adapter;
 
-import android.content.Context;
-import android.util.Log;
+
 import android.view.LayoutInflater;
+import com.example.java_pos.Models.Product;
+import com.example.java_pos.R;
+
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
-import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
-
-import com.example.java_pos.Models.Product;
-import com.example.java_pos.R;
 
 import java.util.List;
 
-public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ViewHolder> {
+public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ProductViewHolder> {
 
-    List<Product> products;
-    Context context;
+    private List<Product> productList;
 
-    public ProductAdapter(List<Product> products, Context context) {
-        this.products = products;
-        this.context = context;
+    public ProductAdapter(List<Product> productList) {
+        this.productList = productList;
     }
 
     @NonNull
     @Override
-    public ProductAdapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.product_model, parent, false);
-        return new ViewHolder(view);
+    public ProductViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_product, parent, false);
+        return new ProductViewHolder(view);
     }
 
     @Override
-    public void onBindViewHolder(@NonNull ProductAdapter.ViewHolder holder, int position) {
-
-        holder.productName.setText(products.get(position).getProductName());
-        holder.productDesc.setText(products.get(position).getProductDesc());
-        holder.productPrice.setText(String.valueOf(products.get(position).getPrice()));
-        holder.productQuantity.setText(String.valueOf(products.get(position).getQuantity()));
-
-        int productId = products.get(position).getProductId();
-
-        holder.productCard.setOnClickListener(v -> {
-
-            Log.d("", "productId: "+productId);
-
-        });
-
+    public void onBindViewHolder(@NonNull ProductViewHolder holder, int position) {
+        Product product = productList.get(position);
+        holder.productImage.setImageResource(product.getImageId());
+        holder.productName.setText(product.getName());
+        holder.productPrice.setText("Price: $" + product.getPrice());
+        holder.productQuantity.setText("Quantity: " + product.getQuantity());
     }
 
     @Override
     public int getItemCount() {
-        return products.size();
+        return productList.size();
     }
 
-    public static class ViewHolder extends RecyclerView.ViewHolder {
+    public void updateProductList(List<Product> newProductList) {
+        productList = newProductList;
+        notifyDataSetChanged();
+    }
 
-        TextView productName, productDesc, productPrice, productQuantity;
+    class ProductViewHolder extends RecyclerView.ViewHolder {
         ImageView productImage;
-        CardView productCard;
-        public ViewHolder(@NonNull View item) {
-            super(item);
+        TextView productName;
+        TextView productPrice;
+        TextView productQuantity;
 
-            productCard = item.findViewById(R.id.product_card);
-            productImage = item.findViewById(R.id.product_image);
-            productName = item.findViewById(R.id.product_name);
-            productDesc = item.findViewById(R.id.product_desc);
-            productPrice = item.findViewById(R.id.product_prc);
-            productQuantity = item.findViewById(R.id.product_qnt);
+        public ProductViewHolder(@NonNull View itemView) {
+            super(itemView);
+            productImage = itemView.findViewById(R.id.product_image);
+            productName = itemView.findViewById(R.id.product_name);
+            productPrice = itemView.findViewById(R.id.product_price);
+            productQuantity = itemView.findViewById(R.id.product_quantity);
         }
     }
 }

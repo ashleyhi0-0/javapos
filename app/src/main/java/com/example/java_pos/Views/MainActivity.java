@@ -1,56 +1,89 @@
 package com.example.java_pos.Views;
 
 import android.os.Bundle;
+import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
+import android.widget.Spinner;
 
-import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.java_pos.Models.Category;
+import com.example.java_pos.Models.Product;
 import com.example.java_pos.R;
-import com.example.java_pos.Repo.Adapter.CategoryAdapter;
-import com.example.java_pos.Repo.CategoryRepo;
+import com.example.java_pos.Repo.Adapter.ProductAdapter;
 
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class MainActivity extends AppCompatActivity {
 
-    CategoryRepo categoryRepo;
-    CategoryAdapter categoryAdapter;
-    RecyclerView recyclerView;
-
-    List<Category> categories;
+    private Spinner spinnerCategories;
+    private RecyclerView recyclerViewProducts;
+    private ProductAdapter productAdapter;
+    private Map<String, List<Product>> categoryProductMap;
 
     @Override
-    protected void onCreate(@Nullable Bundle savedInstanceState) {
+    protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_main);
 
-        setContentView(R.layout.category_activity);
+        spinnerCategories = findViewById(R.id.spinner_categories);
+        recyclerViewProducts = findViewById(R.id.recyclerview_products);
 
-        categoryRepo = new CategoryRepo();
+        // Sample data
+        categoryProductMap = new HashMap<>();
+        categoryProductMap.put("Electronics", generateElectronicsProductList());
+        categoryProductMap.put("Groceries", generateGroceriesProductList());
+        categoryProductMap.put("Clothing", generateClothingProductList());
 
-        categoryList();
+        ArrayAdapter<String> spinnerAdapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, new ArrayList<>(categoryProductMap.keySet()));
+        spinnerAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        spinnerCategories.setAdapter(spinnerAdapter);
 
+        productAdapter = new ProductAdapter(new ArrayList<>());
+        recyclerViewProducts.setLayoutManager(new LinearLayoutManager(this));
+        recyclerViewProducts.setAdapter(productAdapter);
 
+        spinnerCategories.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                String selectedCategory = parent.getItemAtPosition(position).toString();
+                List<Product> productList = categoryProductMap.get(selectedCategory);
+                productAdapter.updateProductList(productList);
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+                productAdapter.updateProductList(new ArrayList<>());
+            }
+        });
     }
 
-    private void categoryList() {
-
-        recyclerView = findViewById(R.id.category_recview);
-        recyclerView.setHasFixedSize(true);
-        recyclerView.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false));
-
-        fetchAndDisplayCategory();
+    private List<Product> generateElectronicsProductList() {
+        List<Product> productList = new ArrayList<>();
+        productList.add(new Product(R.drawable.baseline_account_circle_24, "Apple Watch", 399.99, 10));
+        productList.add(new Product(R.drawable.baseline_account_circle_24, "Laptop", 999.99, 5));
+        productList.add(new Product(R.drawable.baseline_account_circle_24, "Smartphone", 699.99, 8));
+        return productList;
     }
 
-    private void fetchAndDisplayCategory() {
+    private List<Product> generateGroceriesProductList() {
+        List<Product> productList = new ArrayList<>();
+        productList.add(new Product(R.drawable.baseline_account_circle_24, "Apple", 0.99, 50));
+        productList.add(new Product(R.drawable.baseline_account_circle_24, "Banana", 0.49, 100));
+        productList.add(new Product(R.drawable.baseline_account_circle_24, "Bread", 1.99, 20));
+        return productList;
+    }
 
-        categories = categoryRepo.getAllCategories();
-
-        categoryAdapter = new CategoryAdapter(categories, this);
-
-        recyclerView.setAdapter(categoryAdapter);
-
+    private List<Product> generateClothingProductList() {
+        List<Product> productList = new ArrayList<>();
+        productList.add(new Product(R.drawable.baseline_account_circle_24, "Shirt", 29.99, 15));
+        productList.add(new Product(R.drawable.baseline_account_circle_24, "Jeans", 49.99, 10));
+        productList.add(new Product(R.drawable.baseline_account_circle_24, "Jacket", 99.99, 5));
+        return productList;
     }
 }
