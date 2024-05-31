@@ -32,14 +32,6 @@
             android:textColor="#49454F"
             android:textSize="25dp" />
 
-        <Button
-            android:id="@+id/back_btn"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="10dp"
-            android:layout_marginTop="10dp"
-            android:text="Back" />
-
         <TextView
             android:id="@+id/description"
             android:layout_width="wrap_content"
@@ -73,30 +65,18 @@
         app:layout_constraintHorizontal_bias="0.053"
         app:layout_constraintStart_toStartOf="parent" />
 
-    <TextView
-        android:id="@+id/product_quantity"
-        android:layout_width="150dp"
-        android:layout_height="24dp"
-        android:text="Product Quantity"
-        android:textSize="20dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.352"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.83" />
 
     <TextView
         android:id="@+id/product_price"
         android:layout_width="144dp"
         android:layout_height="25dp"
-        android:layout_marginStart="92dp"
+        android:layout_marginStart="88dp"
         android:text="Product Price"
         android:textSize="20dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.797" />
+        app:layout_constraintVertical_bias="0.821" />
 
     <TextView
         android:id="@+id/price"
@@ -109,20 +89,7 @@
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="@+id/product_brand"
         app:layout_constraintTop_toBottomOf="@+id/product_brand"
-        app:layout_constraintVertical_bias="0.0" />
-
-    <TextView
-        android:id="@+id/quantity"
-        android:layout_width="84dp"
-        android:layout_height="24dp"
-        android:text="Quantity:"
-        android:textSize="20dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.015"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.83" />
+        app:layout_constraintVertical_bias="0.207" />
 
     <Button
         android:id="@+id/add2cart_btn"

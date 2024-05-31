@@ -1,0 +1,244 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical">
+
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="CART"
+        android:layout_gravity="center"
+        android:padding="10dp"
+        android:textSize="40dp"
+        android:layout_marginLeft="5dp"/>
+
+
+    <androidx.cardview.widget.CardView
+        android:layout_width="391dp"
+        android:layout_height="wrap_content"
+        android:padding="5dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginTop="10dp"
+        app:cardCornerRadius="10dp"
+        app:cardElevation="4dp">
+
+        <ImageView
+            android:id="@+id/image_order"
+            android:layout_width="70dp"
+            android:layout_height="70dp"
+            android:layout_marginTop="4dp"
+            android:layout_marginLeft="4dp"
+            android:layout_marginBottom="4dp"
+            android:src="@drawable/baseline_account_circle_24"/>
+
+        <TextView
+            android:id="@+id/order_qty"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Qty:"
+            android:layout_marginLeft="90sp"
+            android:layout_marginTop="20sp"/>
+
+        <TextView
+            android:id="@+id/amount_qty"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Amnt"
+            android:layout_marginLeft="120sp"
+            android:layout_marginTop="20sp"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Product name"
+            android:layout_marginLeft="90sp"
+            android:layout_marginTop="4dp"
+            android:textSize="15sp"
+            android:fontFamily="sans-serif-condensed-medium"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="$0"
+            android:layout_marginLeft="350sp"
+            android:layout_marginTop="4dp"
+            android:textSize="15sp"
+            android:fontFamily="sans-serif-thin"/>
+
+
+    </androidx.cardview.widget.CardView>
+
+    <TextView
+        android:id="@+id/order_sum"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Order Summary"
+        android:layout_marginLeft="4dp"
+        android:layout_marginTop="40dp"
+        android:textSize="30sp"/>
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/summary_view"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginTop="20dp"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp">
+
+        <TextView
+            android:id="@+id/subtotal"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:text="Sub Total"/>
+
+        <TextView
+            android:id="@+id/subtotal_amt"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="end"
+            android:layout_marginLeft="300sp"
+            android:layout_marginRight="10sp"
+            android:text="Amount"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:layout_marginTop="30dp"
+            android:text="Delivery Charges"/>
+
+        <TextView
+            android:id="@+id/charges_amt"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="end"
+            android:layout_marginLeft="300sp"
+            android:layout_marginRight="10sp"
+            android:layout_marginTop="30sp"
+            android:text="Charges"/>
+    </androidx.cardview.widget.CardView>
+    <TextView
+        android:id="@+id/grand_total"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Grand Total"
+        android:textSize="20sp"
+        android:layout_marginTop="40sp"
+        android:layout_gravity="center"/>
+    <TextView
+        android:id="@+id/grand_amt"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Overall Amount"
+        android:textSize="40sp"
+        android:layout_marginTop="10sp"
+        android:layout_gravity="center"/>
+
+    <androidx.cardview.widget.CardView
+        android:layout_width="385dp"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="15dp"
+        android:layout_marginTop="25dp">
+
+        <TextView
+            android:id="@+id/payment_method"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="5dp"
+            android:text="Payment Method"
+            android:textColor="#686868" />
+
+        <TextView
+            android:id="@+id/pay_selected"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="40sp"
+            android:layout_marginTop="20dp"
+            android:text="Cash"
+            android:textColor="#415C68" />
+
+        <ImageView
+            android:id="@+id/wallet"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:layout_marginTop="20dp"
+            android:src="@drawable/wallet" />
+
+        <ImageView
+            android:id="@+id/payment_select"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginBottom="25dp"
+            android:layout_marginLeft="175dp"
+            android:src="@drawable/add"/>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="2dp"
+        android:layout_gravity="center"
+        android:layout_marginTop="5dp"
+        android:layout_marginBottom="5dp"
+        android:background="@drawable/add" />
+
+
+        <TextView
+            android:id="@+id/delivery_adr"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="5dp"
+            android:layout_marginTop="65dp"
+            android:text="Our Delivery Address"
+            android:textColor="#686868" />
+
+        <ImageView
+            android:id="@+id/address"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="85dp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginBottom="5dp"
+            android:src="@drawable/location" />
+
+        <TextView
+            android:id="@+id/selected_adrrs"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="40sp"
+            android:layout_marginTop="85dp"
+            android:text="Delivery Adrress"
+            android:textColor="#415C68" />
+
+        <ImageView
+            android:id="@+id/address_slct"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginTop="60dp"
+            android:layout_marginBottom="25dp"
+            android:layout_marginLeft="175dp"
+            android:src="@drawable/add"/>
+
+
+
+    </androidx.cardview.widget.CardView>
+    <Button
+        android:id="@+id/pay_btn"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Pay Now"
+        android:layout_marginTop="100dp"
+        android:layout_marginRight="4dp"
+        android:layout_marginLeft="4dp"
+        android:layout_gravity="bottom"
+        android:backgroundTint="#415C68"/>
+
+
+
+</LinearLayout>
