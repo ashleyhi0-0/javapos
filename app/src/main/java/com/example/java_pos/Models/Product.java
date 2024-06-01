@@ -1,47 +1,52 @@
 package com.example.java_pos.Models;
 
-public class Product {
 
-    int categoryId, productId, quantity, productImg;
+import java.io.Serializable;
+
+public class Product implements Serializable {
+
+    int imageId;
+    String name;
+    String desc;
     double price;
+    int quantity;
+    int productId;
 
-    String productName, productDesc;
+    String type;
 
-    public Product(int categoryId, int productId, int quantity, int productImg, double price, String productName, String productDesc) {
-        this.categoryId = categoryId;
-        this.productId = productId;
-        this.quantity = quantity;
-        this.productImg = productImg;
+    public Product(int imageId, String name, String desc, double price, int quantity, int productId, String type) {
+        this.imageId = imageId;
+        this.name = name;
+        this.desc = desc;
         this.price = price;
-        this.productName = productName;
-        this.productDesc = productDesc;
+        this.quantity = quantity;
+        this.productId = productId;
+        this.type = type;
     }
 
-    public int getCategoryId() {
-        return categoryId;
+    public int getImageId() {
+        return imageId;
     }
 
-    public int getProductId() {
-        return productId;
+    public String getName() {
+        return name;
     }
 
-    public int getQuantity() {
-        return quantity;
-    }
-
-    public int getProductImg() {
-        return productImg;
+    public String getDesc() {
+        return desc;
     }
 
     public double getPrice() {
         return price;
     }
 
-    public String getProductName() {
-        return productName;
+    public int getQuantity() {
+        return quantity;
     }
 
-    public String getProductDesc() {
-        return productDesc;
+    public int getProductId() {
+        return productId;
     }
+
+    public String getType() {return type;}
 }
