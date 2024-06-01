@@ -1,6 +1,7 @@
 package com.example.java_pos.Repo.Adapter;
 
 import android.content.Context;
+import android.content.Intent;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -9,18 +10,19 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
-import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.java_pos.Models.Product;
 import com.example.java_pos.R;
+import com.example.java_pos.Views.CartActivity;
 
 import java.util.List;
 
 public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ViewHolder> {
 
     List<Product> products;
-    Context context;
+
+    private Context context;
 
     public ProductAdapter(List<Product> products, Context context) {
         this.products = products;
@@ -30,25 +32,36 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ViewHold
     @NonNull
     @Override
     public ProductAdapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.product_model, parent, false);
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_product, parent, false);
         return new ViewHolder(view);
     }
 
     @Override
     public void onBindViewHolder(@NonNull ProductAdapter.ViewHolder holder, int position) {
 
-        holder.productName.setText(products.get(position).getProductName());
-        holder.productDesc.setText(products.get(position).getProductDesc());
-        holder.productPrice.setText(String.valueOf(products.get(position).getPrice()));
-        holder.productQuantity.setText(String.valueOf(products.get(position).getQuantity()));
+        Product product = products.get(position);
 
-        int productId = products.get(position).getProductId();
+        holder.productName.setText(product.getName());
+        holder.productQuantity.setText("Quantity: "+product.getQuantity());
+        holder.productPrice.setText("Price: $"+product.getPrice());
+        holder.productImage.setImageResource(product.getImageId());
 
-        holder.productCard.setOnClickListener(v -> {
+        int productId = product.getProductId();
+
+        holder.productImage.setOnClickListener(v -> {
 
             Log.d("", "productId: "+productId);
 
+            Intent intent = new Intent(context, CartActivity.class);
+            intent.putExtra("productId", productId);
+            context.startActivity(intent);
+
         });
+    }
+    public void updateProductList(List<Product> newProductList) {
+
+        products = newProductList;
+        notifyDataSetChanged();
 
     }
 
@@ -59,18 +72,15 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ViewHold
 
     public static class ViewHolder extends RecyclerView.ViewHolder {
 
-        TextView productName, productDesc, productPrice, productQuantity;
+        TextView productName, productPrice, productQuantity;
         ImageView productImage;
-        CardView productCard;
-        public ViewHolder(@NonNull View item) {
-            super(item);
+        public ViewHolder(@NonNull View itemView) {
+            super(itemView);
 
-            productCard = item.findViewById(R.id.product_card);
-            productImage = item.findViewById(R.id.product_image);
-            productName = item.findViewById(R.id.product_name);
-            productDesc = item.findViewById(R.id.product_desc);
-            productPrice = item.findViewById(R.id.product_prc);
-            productQuantity = item.findViewById(R.id.product_qnt);
+            productName = itemView.findViewById(R.id.product_name);
+            productPrice = itemView.findViewById(R.id.product_price);
+            productQuantity = itemView.findViewById(R.id.product_quantity);
+            productImage = itemView.findViewById(R.id.product_image);
         }
     }
 }
