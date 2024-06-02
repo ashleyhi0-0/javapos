@@ -3,10 +3,12 @@ package com.example.java_pos.Repo.Adapter;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.java_pos.Helper.SharedPrefHelper;
 import com.example.java_pos.Models.Order;
 import com.example.java_pos.R;
 
@@ -16,9 +18,12 @@ public class OrderAdapter extends RecyclerView.Adapter<OrderAdapter.OrderViewHol
 
     private List<Order> orderList;
 
+    private static OnOrderDeleteListener deleteListener;
+
     // Constructor to initialize with a list of orders
-    public OrderAdapter(List<Order> orderList) {
+    public OrderAdapter(List<Order> orderList, OnOrderDeleteListener deleteListener) {
         this.orderList = orderList;
+        this.deleteListener = deleteListener;
     }
 
     @NonNull
@@ -46,12 +51,16 @@ public class OrderAdapter extends RecyclerView.Adapter<OrderAdapter.OrderViewHol
         private TextView quantityTextView;
         private TextView priceTextView;
 
+        private ImageView delete;
+
+
         public OrderViewHolder(@NonNull View itemView) {
             super(itemView);
             // Initialize views from itemView
             productNameTextView = itemView.findViewById(R.id.order_name);
             quantityTextView = itemView.findViewById(R.id.amount_qty);
             priceTextView = itemView.findViewById(R.id.order_price);
+            delete = itemView.findViewById(R.id.deleteIcon);
         }
 
         public void bind(Order order) {
@@ -59,6 +68,11 @@ public class OrderAdapter extends RecyclerView.Adapter<OrderAdapter.OrderViewHol
             productNameTextView.setText(order.getProductName());
             quantityTextView.setText(String.valueOf(order.getQuantity()));
             priceTextView.setText("$" + order.getPrice());
+
+            delete.setOnClickListener(v -> deleteListener.onOrderDelete(getAdapterPosition()));
         }
+    }
+    public interface OnOrderDeleteListener {
+        void onOrderDelete(int position);
     }
 }

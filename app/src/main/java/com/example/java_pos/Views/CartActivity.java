@@ -129,6 +129,7 @@ public class CartActivity extends AppCompatActivity {
                 // Navigate to CheckoutActivity
                 Intent intent = new Intent(CartActivity.this, CheckoutActivity.class);
                 startActivity(intent);
+                finish();
             }
         });
 
