@@ -78,6 +78,18 @@
             android:layout_marginTop="32dp"
             android:backgroundTint="#FFFFFF"/>
 
+        <TextView
+            android:id="@+id/loginBtn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Already have an account?"
+            android:padding="18dp"
+            android:textColor="#2196F3"
+            android:textSize="20sp"
+            android:layout_marginTop="32dp"
+            android:backgroundTint="#FFFFFF"/>
+
+
     </LinearLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
