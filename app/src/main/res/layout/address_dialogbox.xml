@@ -1,37 +1,47 @@
-
-<LinearLayout
+<androidx.cardview.widget.CardView
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:orientation="vertical"
-    android:background="#FFFFFF"
-    android:padding="16dp">
+    android:layout_margin="16dp"
+    android:elevation="4dp">
 
-
-    <EditText
-        android:id="@+id/editTextStreet"
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:textColor="@color/white"
-        android:backgroundTint="@color/black"
-        android:hint="Street Address" />
+        android:orientation="vertical"
+        android:padding="16dp">
 
+        <EditText
+            android:id="@+id/editTextStreet"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Street Address" />
 
-    <EditText
-        android:id="@+id/editTextCity"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:backgroundTint="@color/black"
-        android:hint="City" />
+        <EditText
+            android:id="@+id/editTextCity"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="City" />
 
+        <EditText
+            android:id="@+id/editTextPostalCode"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Postal Code" />
 
-    <EditText
-        android:id="@+id/editTextPostalCode"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:backgroundTint="@color/black"
-        android:hint="Postal Code" />
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center">
 
-
-
-</LinearLayout>
+            <ImageButton
+                android:id="@+id/btnRightArrow"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/ic_right_arrow"
+                android:layout_marginStart="300dp"
+                android:contentDescription="Right Arrow" />
+        </LinearLayout>
+    </LinearLayout>
+</androidx.cardview.widget.CardView>
