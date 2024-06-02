@@ -19,8 +19,8 @@ public class SharedPrefHelper {
     private static final String ORDER_PREF_NAME = "order_pref";
 
     // Store order list in shared preferences
-    public static void storeOrderList(Context context, List<Order> orderList) {
-        SharedPreferences.Editor editor = context.getSharedPreferences(ORDER_PREF_NAME, Context.MODE_PRIVATE).edit();
+    public static void storeOrderList(Context context, List<Order> orderList, String username) {
+        SharedPreferences.Editor editor = context.getSharedPreferences(username, Context.MODE_PRIVATE).edit();
         Gson gson = new Gson();
         String json = gson.toJson(orderList);
         editor.putString("orderList", json);
@@ -28,8 +28,8 @@ public class SharedPrefHelper {
     }
 
     // Retrieve order list from shared preferences
-    public static List<Order> retrieveOrderList(Context context) {
-        SharedPreferences sharedPreferences = context.getSharedPreferences(ORDER_PREF_NAME, Context.MODE_PRIVATE);
+    public static List<Order> retrieveOrderList(Context context, String username) {
+        SharedPreferences sharedPreferences = context.getSharedPreferences(username, Context.MODE_PRIVATE);
         Gson gson = new Gson();
         String json = sharedPreferences.getString("orderList", null);
         Type type = new TypeToken<List<Order>>() {}.getType();
@@ -38,10 +38,11 @@ public class SharedPrefHelper {
 
 
     // Remove order list from shared preferences
-    public static void removeOrderList(Context context) {
-        SharedPreferences.Editor editor = context.getSharedPreferences(ORDER_PREF_NAME, Context.MODE_PRIVATE).edit();
+    public static void removeOrderList(Context context, String username) {
+        SharedPreferences.Editor editor = context.getSharedPreferences(username, Context.MODE_PRIVATE).edit();
         editor.remove("orderList");
         editor.apply();
     }
+
 
 }

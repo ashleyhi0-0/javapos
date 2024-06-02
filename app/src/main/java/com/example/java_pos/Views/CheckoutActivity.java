@@ -14,8 +14,10 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.java_pos.Helper.SharedPrefHelper;
+import com.example.java_pos.Models.Account;
 import com.example.java_pos.Models.Order;
 import com.example.java_pos.R;
+import com.example.java_pos.Repo.AccountRepo;
 import com.example.java_pos.Repo.Adapter.OrderAdapter;
 
 import java.util.ArrayList;
@@ -33,6 +35,10 @@ public class CheckoutActivity extends AppCompatActivity implements OrderAdapter.
     private List<Order> orderList;
 
     private Button payBtn;
+
+    private AccountRepo accountRepo;
+
+    private Account account;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -77,6 +83,7 @@ public class CheckoutActivity extends AppCompatActivity implements OrderAdapter.
         grandTotalText = findViewById(R.id.grand_amt);
         pay_selected = findViewById(R.id.pay_selected);
         payBtn = findViewById(R.id.pay_btn);
+        accountRepo = new AccountRepo(this);
     }
 
     // Setup RecyclerView with a LinearLayoutManager
@@ -111,7 +118,12 @@ public class CheckoutActivity extends AppCompatActivity implements OrderAdapter.
 
     // Retrieve the order list from SharedPreferences
     private List<Order> retrieveOrderList() {
-        List<Order> orderList = SharedPrefHelper.retrieveOrderList(this);
+
+        account = accountRepo.getLoggedInAccount();
+
+        String username = account.getUsername();
+
+        List<Order> orderList = SharedPrefHelper.retrieveOrderList(this, username);
         return orderList != null ? orderList : new ArrayList<>();
     }
 
@@ -139,6 +151,8 @@ public class CheckoutActivity extends AppCompatActivity implements OrderAdapter.
     // Callback method when an order is deleted from the list
     @Override
     public void onOrderDelete(int position) {
+
+        String username = account.getUsername();
         // Remove the order from the list
         orderList.remove(position);
 
@@ -150,6 +164,6 @@ public class CheckoutActivity extends AppCompatActivity implements OrderAdapter.
         calculateTotals(orderList);
 
         // Save the updated order list to SharedPreferences
-        SharedPrefHelper.storeOrderList(this, orderList);
+        SharedPrefHelper.storeOrderList(this, orderList, username);
     }
 }
