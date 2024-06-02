@@ -114,7 +114,7 @@ public class MainActivity extends AppCompatActivity {
 
     static List<Product> generateGroceriesList() {
         List<Product> productList = new ArrayList<>();
-        productList.add(new Product(R.drawable.baseline_3p_24, "Apple", "This is an apple", 129.99, 12, 1, "Groceries"));
+        productList.add(new Product(R.drawable.baseline_3p_24, "Apple", "This is an apple", 5.99, 12, 1, "Groceries"));
         // Add more products as needed
         return productList;
     }
@@ -128,7 +128,7 @@ public class MainActivity extends AppCompatActivity {
 
     static List<Product> generateElectronicsList() {
         List<Product> productList = new ArrayList<>();
-        productList.add(new Product(R.drawable.baseline_3p_24, "Laptop", "This is a laptop", 999.99, 5, 3, "Electronics"));
+        productList.add(new Product(R.drawable.baseline_3p_24, "Laptop", "This is a laptop", 99.99, 5, 3, "Electronics"));
         // Add more products as needed
         return productList;
     }
