@@ -11,9 +11,11 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.java_pos.Helper.SharedPrefHelper;
+import com.example.java_pos.Models.Account;
 import com.example.java_pos.Models.Product;
 import com.example.java_pos.Models.Order;
 import com.example.java_pos.R;
+import com.example.java_pos.Repo.AccountRepo;
 import com.google.android.material.slider.Slider;
 
 import java.io.Serializable;
@@ -37,6 +39,10 @@ public class CartActivity extends AppCompatActivity {
 
     private List<Order> orderList;
 
+    private AccountRepo accountRepo;
+
+    private Account account;
+
     int productId;
 
     @Override
@@ -56,6 +62,7 @@ public class CartActivity extends AppCompatActivity {
     }
 
     private void initializeUI() {
+        accountRepo = new AccountRepo(this);
         productImage = findViewById(R.id.product_image);
         productBrand = findViewById(R.id.product_brand);
         productType = findViewById(R.id.product_type);
@@ -112,8 +119,10 @@ public class CartActivity extends AppCompatActivity {
         addToCartButton.setOnClickListener(view -> {
             int selectedQuantity = (int) amountSlider.getValue();
             if (currentProduct != null) {
+                account = accountRepo.getLoggedInAccount();
+                String username = account.getUsername();
                 // Retrieve existing order list from SharedPreferences
-                List<Order> orderList = SharedPrefHelper.retrieveOrderList(this);
+                List<Order> orderList = SharedPrefHelper.retrieveOrderList(this, username);
 
                 // Initialize an empty list if the retrieved list is null
                 if (orderList == null) {
@@ -124,7 +133,7 @@ public class CartActivity extends AppCompatActivity {
                 orderList.add(new Order(currentProduct.getName(), selectedQuantity, currentProduct.getPrice()));
 
                 // Store the updated order list in SharedPreferences
-                SharedPrefHelper.storeOrderList(this, orderList);
+                SharedPrefHelper.storeOrderList(this, orderList, username);
 
                 // Navigate to CheckoutActivity
                 Intent intent = new Intent(CartActivity.this, CheckoutActivity.class);

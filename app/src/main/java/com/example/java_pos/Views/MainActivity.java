@@ -146,6 +146,8 @@ public class MainActivity extends AppCompatActivity {
             return true;
         }
         else if(id == R.id.profile) {
+            startActivity(new Intent(MainActivity.this, ProfileActivity.class));
+            overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
             return true;
         }
         return false;
