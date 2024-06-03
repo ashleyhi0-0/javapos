@@ -136,8 +136,7 @@ public class CartActivity extends AppCompatActivity {
                 SharedPrefHelper.storeOrderList(this, orderList, username);
 
                 // Navigate to CheckoutActivity
-                Intent intent = new Intent(CartActivity.this, CheckoutActivity.class);
-                startActivity(intent);
+                startActivity(new Intent(CartActivity.this, CheckoutActivity.class));
                 finish();
             }
         });

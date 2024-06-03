@@ -49,4 +49,6 @@ public class Product implements Serializable {
     }
 
     public String getType() {return type;}
+
+
 }

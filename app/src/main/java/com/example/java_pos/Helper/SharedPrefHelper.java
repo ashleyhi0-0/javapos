@@ -16,14 +16,14 @@ import java.util.List;
 
 public class SharedPrefHelper {
 
-    private static final String ORDER_PREF_NAME = "order_pref";
+    private static final String ORDER_PREF_NAME = "orderList";
 
     // Store order list in shared preferences
     public static void storeOrderList(Context context, List<Order> orderList, String username) {
         SharedPreferences.Editor editor = context.getSharedPreferences(username, Context.MODE_PRIVATE).edit();
         Gson gson = new Gson();
         String json = gson.toJson(orderList);
-        editor.putString("orderList", json);
+        editor.putString(ORDER_PREF_NAME, json);
         editor.apply();
     }
 
@@ -31,7 +31,7 @@ public class SharedPrefHelper {
     public static List<Order> retrieveOrderList(Context context, String username) {
         SharedPreferences sharedPreferences = context.getSharedPreferences(username, Context.MODE_PRIVATE);
         Gson gson = new Gson();
-        String json = sharedPreferences.getString("orderList", null);
+        String json = sharedPreferences.getString(ORDER_PREF_NAME, null);
         Type type = new TypeToken<List<Order>>() {}.getType();
         return gson.fromJson(json, type);
     }
@@ -40,7 +40,7 @@ public class SharedPrefHelper {
     // Remove order list from shared preferences
     public static void removeOrderList(Context context, String username) {
         SharedPreferences.Editor editor = context.getSharedPreferences(username, Context.MODE_PRIVATE).edit();
-        editor.remove("orderList");
+        editor.remove(ORDER_PREF_NAME);
         editor.apply();
     }
 

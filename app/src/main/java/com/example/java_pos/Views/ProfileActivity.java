@@ -59,4 +59,8 @@ public class ProfileActivity extends AppCompatActivity {
         startActivity(intent);
         finish();
     }
+    public void onBackPressed() {
+        super.onBackPressed();
+        overridePendingTransition(0, R.anim.slide_out_right); // Custom animations for back navigation
+    }
 }

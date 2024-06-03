@@ -2,60 +2,61 @@ package com.example.java_pos.Views;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.annotation.Nullable;
+import androidx.appcompat.app.AppCompatActivity;
+
+import com.example.java_pos.Models.Account;
 import com.example.java_pos.R;
 import com.example.java_pos.Repo.AccountRepo;
-
-import androidx.appcompat.app.AppCompatActivity;
 
 public class RegisterActivity extends AppCompatActivity {
 
     private EditText usernameEditText, passwordEditText;
-    private Button registerButton;
+
     private AccountRepo accountRepo;
 
-   TextView haveAccount;
+    private Account account;
+
+    private Button registerBtn;
+
+    private TextView haveAccount;
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.register_actvity);
-
+        // initialize UI
         accountRepo = new AccountRepo(this);
-
         usernameEditText = findViewById(R.id.username_register);
         passwordEditText = findViewById(R.id.password_confirm);
-        registerButton = findViewById(R.id.register_btn);
         haveAccount = findViewById(R.id.loginBtn);
+        registerBtn = findViewById(R.id.register_btn);
 
-        registerButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                String username = usernameEditText.getText().toString();
-                String password = passwordEditText.getText().toString();
+        registerBtn.setOnClickListener(v -> {
+            String username = usernameEditText.getText().toString();
+            String password = passwordEditText.getText().toString();
 
-                if(username.isEmpty() && password.isEmpty()) {
-                    Toast.makeText(RegisterActivity.this, "Please enter username and password.", Toast.LENGTH_SHORT).show();
-                }
-
-                else if (accountRepo.register(username, password)) {
-                    Toast.makeText(RegisterActivity.this, "Registration successful", Toast.LENGTH_SHORT).show();
-                } else {
-                    Toast.makeText(RegisterActivity.this, "Username already exists", Toast.LENGTH_SHORT).show();
-                }
+            if(username.isEmpty() || password.isEmpty()) {
+                Toast.makeText(RegisterActivity.this, "Input a username and password.", Toast.LENGTH_SHORT).show();
+            }else if(accountRepo.register(username, password)) {
+                Toast.makeText(RegisterActivity.this, "Registered successfully.", Toast.LENGTH_SHORT).show();
+            }else {
+                Toast.makeText(RegisterActivity.this, "Username already exist.", Toast.LENGTH_SHORT).show();
             }
+
+
         });
+
         haveAccount.setOnClickListener(v -> {
-
-            Intent intent = new Intent(RegisterActivity.this, LoginActivity.class);
-            intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-            startActivity(intent);
-
+            startActivity(new Intent(RegisterActivity.this, LoginActivity.class));
+            finish();
         });
+
+
     }
 }

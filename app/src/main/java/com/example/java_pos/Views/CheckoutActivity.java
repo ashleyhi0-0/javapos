@@ -9,6 +9,8 @@ import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.widget.Button;
+import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -29,12 +31,16 @@ public class CheckoutActivity extends AppCompatActivity implements OrderAdapter.
     private RecyclerView recyclerView;
     private OrderAdapter orderAdapter;
     private ImageView payment, address;
-    private TextView pay_selected, instant, cod;
-    private Dialog paymentDialog;
+    private TextView pay_selected, instant, cod, addressTextView;
+    private Dialog paymentDialog, addressDialog;
     private TextView subtotalText, charges, grandTotalText;
     private List<Order> orderList;
 
+    private EditText street, city, postal;
+
     private Button payBtn;
+
+    private ImageButton confirmAddressBtn;
 
     private AccountRepo accountRepo;
 
@@ -53,6 +59,8 @@ public class CheckoutActivity extends AppCompatActivity implements OrderAdapter.
 
         // Setup payment method selection dialog
         setupPaymentDialog();
+
+        setupAddressDialog();
 
         // Retrieve orders from SharedPreferences and bind to Adapter
         orderList = retrieveOrderList();
@@ -83,6 +91,7 @@ public class CheckoutActivity extends AppCompatActivity implements OrderAdapter.
         grandTotalText = findViewById(R.id.grand_amt);
         pay_selected = findViewById(R.id.pay_selected);
         payBtn = findViewById(R.id.pay_btn);
+        addressTextView = findViewById(R.id.selected_adrrs);
         accountRepo = new AccountRepo(this);
     }
 
@@ -108,6 +117,44 @@ public class CheckoutActivity extends AppCompatActivity implements OrderAdapter.
 
         // Set the payment method to "Instant" when Instant Payment is selected
         instant.setOnClickListener(v -> selectPaymentMethod("Instant"));
+    }
+    private void setupAddressDialog() {
+
+        addressDialog = new Dialog(this);
+        addressDialog.setContentView(R.layout.address_dialogbox);
+        addressDialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+
+        street = addressDialog.findViewById(R.id.editTextStreet);
+        city = addressDialog.findViewById(R.id.editTextCity);
+        postal = addressDialog.findViewById(R.id.editTextPostalCode);
+        confirmAddressBtn = addressDialog.findViewById(R.id.confirmAddress);
+
+
+        address.setOnClickListener(v -> {
+            addressDialog.show();
+            String streetInput, cityInput, postalInput;
+            streetInput = street.getText().toString();
+            cityInput = city.getText().toString();
+            postalInput = postal.getText().toString();
+
+            confirmAddressBtn.setOnClickListener(v1 -> {
+
+                if(streetInput.isEmpty() && cityInput.isEmpty() && postalInput.isEmpty()) {
+                    addressTextView.setText("Delivery Address");
+                    addressDialog.dismiss();
+                }
+                else {
+                    addressTextView.setText(streetInput + ", "+cityInput+ ", "+postalInput);
+                    addressDialog.dismiss();
+                }
+
+
+            });
+
+
+        });
+
+
     }
 
     // Method to handle payment method selection
@@ -152,18 +199,20 @@ public class CheckoutActivity extends AppCompatActivity implements OrderAdapter.
     @Override
     public void onOrderDelete(int position) {
 
-        String username = account.getUsername();
-        // Remove the order from the list
-        orderList.remove(position);
+       String username = account.getUsername();
 
-        // Notify the adapter about the removed item
-        orderAdapter.notifyItemRemoved(position);
-        orderAdapter.notifyItemRangeChanged(position, orderList.size());
+       orderList.remove(position);
 
-        // Recalculate and update the totals
-        calculateTotals(orderList);
+       orderAdapter.notifyItemRemoved(position);
+       orderAdapter.notifyItemRangeChanged(position, orderList.size());
 
-        // Save the updated order list to SharedPreferences
-        SharedPrefHelper.storeOrderList(this, orderList, username);
+       calculateTotals(orderList);
+
+       SharedPrefHelper.storeOrderList(this, orderList, username);
+    }
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        overridePendingTransition(0, R.anim.slide_out_right); // Custom animations for back navigation
     }
 }

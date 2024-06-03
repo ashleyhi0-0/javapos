@@ -5,7 +5,6 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
-import android.widget.Button;
 import android.widget.Spinner;
 
 import androidx.annotation.Nullable;
@@ -26,82 +25,58 @@ import java.util.Map;
 
 public class MainActivity extends AppCompatActivity {
 
-    private BottomNavigationView bottomNavigationView;
-
     private Spinner spinnerCategories;
+
     private RecyclerView recyclerView;
-    private ProductAdapter productAdapter;
+
     private Map<String, List<Product>> categoryProductMap;
+
+    private ProductAdapter productAdapter;
 
     private AccountRepo accountRepo;
 
-    private Button checkOutBtn;
+    private BottomNavigationView bottomNavigationView;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_dashboard);
 
+        // initialize accountRepo
+
         accountRepo = new AccountRepo(this);
 
-        // Check if the user is logged in
-        if (accountRepo.getLoggedInAccount() == null || !accountRepo.getLoggedInAccount().isLoggedIn()) {
-            // If not logged in, redirect to LoginActivity
+        // check if user is already logged in.
+
+        if(accountRepo.getLoggedInAccount() == null || !accountRepo.getLoggedInAccount().isLoggedIn()) {
             Intent intent = new Intent(MainActivity.this, LoginActivity.class);
             startActivity(intent);
             finish();
         }
+        // initialize bottomnavigationview
 
-        initializeUI();
-        setupRecyclerView();
-        setupSpinner();
-        loadProductData();
-        setupSpinnerListener();
-
-        // Initialize BottomNavigationView
         bottomNavigationView = findViewById(R.id.bottomNavigationView);
-        bottomNavigationView.setOnNavigationItemSelectedListener(navItemSelectedListener);
+        bottomNavigationView.setOnNavigationItemSelectedListener(bottomNavListener);
 
-        // Set default selected item
-        bottomNavigationView.setSelectedItemId(R.id.home);
-    }
-
-    private void initializeUI() {
-        spinnerCategories = findViewById(R.id.spinner_categories);
-        recyclerView = findViewById(R.id.recyclerview_products);
-
-    }
-
-    private void setupRecyclerView() {
+        // initialize recyclerview & productAdapter
         productAdapter = new ProductAdapter(new ArrayList<>(), this);
+        recyclerView = findViewById(R.id.recyclerview_products);
         recyclerView.setLayoutManager(new GridLayoutManager(this, 2, GridLayoutManager.HORIZONTAL, false));
         recyclerView.setAdapter(productAdapter);
-    }
 
-    private void setupSpinner() {
+        // initialize spinnerCategories
+
+        spinnerCategories = findViewById(R.id.spinner_categories);
         ArrayAdapter<String> spinnerAdapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, new ArrayList<>());
         spinnerAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinnerCategories.setAdapter(spinnerAdapter);
-    }
+        loadProductData();
 
-    private void loadProductData() {
-        categoryProductMap = new HashMap<>();
-        categoryProductMap.put("Groceries", generateGroceriesList());
-        categoryProductMap.put("Clothings", generateClothingList());
-        categoryProductMap.put("Electronics", generateElectronicsList());
-
-        ArrayAdapter<String> spinnerAdapter = (ArrayAdapter<String>) spinnerCategories.getAdapter();
-        spinnerAdapter.clear();
-        spinnerAdapter.addAll(categoryProductMap.keySet());
-        spinnerAdapter.notifyDataSetChanged();
-    }
-
-    private void setupSpinnerListener() {
         spinnerCategories.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                String selectedCategory = parent.getItemAtPosition(position).toString();
-                List<Product> productList = categoryProductMap.get(selectedCategory);
+                String selectedCategories = parent.getItemAtPosition(position).toString();
+                List<Product> productList = categoryProductMap.get(selectedCategories);
                 productAdapter.updateProductList(productList);
             }
 
@@ -112,44 +87,55 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
+    private void loadProductData() {
+
+        categoryProductMap = new HashMap<>();
+        categoryProductMap.put("Groceries", generateGroceriesList());
+        categoryProductMap.put("Clothings", generateClothingList());
+        categoryProductMap.put("Electronics", generateElectronicsList());
+
+        ArrayAdapter<String> spinnerAdapter = (ArrayAdapter<String>) spinnerCategories.getAdapter();
+        spinnerAdapter.clear();
+        spinnerAdapter.addAll(categoryProductMap.keySet());
+        spinnerAdapter.notifyDataSetChanged();
+
+    }
+
     static List<Product> generateGroceriesList() {
+
         List<Product> productList = new ArrayList<>();
-        productList.add(new Product(R.drawable.baseline_3p_24, "Apple", "This is an apple", 5.99, 12, 1, "Groceries"));
-        // Add more products as needed
+        productList.add(new Product(R.drawable.baseline_3p_24, "Apple", "this is an apple", 4.99, 12, 1, "Groceries"));
         return productList;
     }
 
     static List<Product> generateClothingList() {
         List<Product> productList = new ArrayList<>();
-        productList.add(new Product(R.drawable.baseline_3p_24, "Shirt", "This is a shirt", 49.99, 20, 2, "Clothings"));
-        // Add more products as needed
+        productList.add(new Product(R.drawable.baseline_3p_24, "Tshirt", "this is a tshirt", 14.99, 12, 2, "Clothings"));
         return productList;
     }
 
     static List<Product> generateElectronicsList() {
         List<Product> productList = new ArrayList<>();
-        productList.add(new Product(R.drawable.baseline_3p_24, "Laptop", "This is a laptop", 99.99, 5, 3, "Electronics"));
-        // Add more products as needed
+        productList.add(new Product(R.drawable.baseline_3p_24, "Laptop", "this is a laptop", 54.99, 12, 3, "Electronics"));
         return productList;
     }
 
-    private BottomNavigationView.OnNavigationItemSelectedListener navItemSelectedListener = item -> {
+    public BottomNavigationView.OnNavigationItemSelectedListener bottomNavListener = item -> {
 
         int id = item.getItemId();
 
-        if (id == R.id.home) {
+        if(id == R.id.home) {
             return true;
-        }
-        else if(id == R.id.shop) {
+        }else if(id == R.id.shop) {
             startActivity(new Intent(MainActivity.this, CheckoutActivity.class));
-            overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left); // Custom animations
+            overridePendingTransition(R.anim.slide_in_right, 0);
             return true;
-        }
-        else if(id == R.id.profile) {
+        }else if(id == R.id.profile) {
             startActivity(new Intent(MainActivity.this, ProfileActivity.class));
-            overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
+            overridePendingTransition(R.anim.slide_in_right, 0);
             return true;
         }
+
         return false;
     };
 }

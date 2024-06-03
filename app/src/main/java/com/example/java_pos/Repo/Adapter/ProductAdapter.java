@@ -1,8 +1,8 @@
 package com.example.java_pos.Repo.Adapter;
 
+
 import android.content.Context;
 import android.content.Intent;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -42,27 +42,26 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ViewHold
         Product product = products.get(position);
 
         holder.productName.setText(product.getName());
+        holder.productPrice.setText(String.format("Price: $%.2f", product.getPrice()));
         holder.productQuantity.setText("Quantity: "+product.getQuantity());
-        holder.productPrice.setText("Price: $"+product.getPrice());
         holder.productImage.setImageResource(product.getImageId());
 
         int productId = product.getProductId();
 
         holder.productImage.setOnClickListener(v -> {
 
-            Log.d("", "productId: "+productId);
-
             Intent intent = new Intent(context, CartActivity.class);
             intent.putExtra("productId", productId);
             context.startActivity(intent);
 
         });
+
     }
+
     public void updateProductList(List<Product> newProductList) {
-
         products = newProductList;
-        notifyDataSetChanged();
 
+        notifyDataSetChanged();
     }
 
     @Override
@@ -74,13 +73,14 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ViewHold
 
         TextView productName, productPrice, productQuantity;
         ImageView productImage;
-        public ViewHolder(@NonNull View itemView) {
-            super(itemView);
 
-            productName = itemView.findViewById(R.id.product_name);
-            productPrice = itemView.findViewById(R.id.product_price);
-            productQuantity = itemView.findViewById(R.id.product_quantity);
-            productImage = itemView.findViewById(R.id.product_image);
+        public ViewHolder(@NonNull View item) {
+            super(item);
+
+            productName = item.findViewById(R.id.product_name);
+            productPrice = item.findViewById(R.id.product_price);
+            productQuantity = item.findViewById(R.id.product_quantity);
+            productImage = item.findViewById(R.id.product_image);
         }
     }
 }
